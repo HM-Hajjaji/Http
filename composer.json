@@ -1,0 +1,24 @@
+{
+    "name": "hm-hajjaji/http",
+    "description": "simple package for handling request and response in php",
+    "type": "composer-plugin",
+    "license": "MIT",
+    "homepage": "https://github.com/HM-Hajjaji/Http",
+    "authors": [
+        {
+            "name": "Hamza Hajjaji",
+            "email": "hhajjaji.fsd@gmail.com",
+            "homepage": "https://github.com/HM-Hajjaji",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Http\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
