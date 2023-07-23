@@ -54,6 +54,7 @@ class Response
 
     public function send():static
     {
+        http_response_code($this->getStatusCode());
         echo $this->content;
         return $this;
     }
