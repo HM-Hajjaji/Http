@@ -16,7 +16,7 @@ class Request
 
     public function __construct()
     {
-        $this->server = new Server($_SESSION);
+        $this->server = new Server($_SERVER);
         $this->query = new Query($_REQUEST);
         $this->file = new File($_FILES);
         $this->cookie = new Cookie($_COOKIE);
