@@ -1,7 +1,7 @@
 {
     "name": "hm-hajjaji/http",
     "description": "simple package for handling request and response in php",
-    "type": "composer-plugin",
+    "type": "library",
     "license": "MIT",
     "homepage": "https://github.com/HM-Hajjaji/Http",
     "authors": [
