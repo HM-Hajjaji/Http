@@ -16,13 +16,18 @@ class Request
 
     public function __construct()
     {
-        $this->server = new Server($_SERVER);
-        $this->query = new Query($_REQUEST);
-        $this->file = new File($_FILES);
-        $this->cookie = new Cookie($_COOKIE);
+        $this->initialize($_SERVER,$_REQUEST,$_FILES,$_COOKIE);
     }
 
-    public function request(string $url,string $method = "GET"|"POST",array $params = []): Response
+    public function initialize(array $server = [], array $query = [], array $file = [], array $cookie = []): void
+    {
+        $this->server = new Server($server);
+        $this->query = new Query($query);
+        $this->file = new File($file);
+        $this->cookie = new Cookie($cookie);
+    }
+
+    /*public function request(string $url,string $method = "GET"|"POST",array $params = []): Response
     {
         if (!filter_var($url,FILTER_VALIDATE_URL))
         {
@@ -56,5 +61,5 @@ class Request
 
         curl_close($object);
         return new Response($content);
-    }
+    }*/
 }

@@ -2,9 +2,9 @@
 
 namespace Http\Support;
 
-use Http\Support\Abstract\AbstractHttp;
+use Http\Support\Bag\Bag;
 
-class File extends AbstractHttp
+class File extends Bag
 {
 
 }

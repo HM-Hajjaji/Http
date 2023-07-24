@@ -2,9 +2,9 @@
 
 namespace Http\Support;
 
-use Http\Support\Abstract\AbstractHttp;
+use Http\Support\Bag\Bag;
 
-class Server extends AbstractHttp
+class Server extends Bag
 {
     public function getMethod():string
     {
