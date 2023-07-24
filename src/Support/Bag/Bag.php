@@ -46,6 +46,15 @@ class Bag
     }
 
     /**
+     * Returns true if the parameters is empty
+     * @return bool
+     */
+    public function isEmpty():bool
+    {
+        return empty($this->parameters);
+    }
+
+    /**
      * Returns true if the parameter is defined.
      * @param string $key
      * @return bool
@@ -62,15 +71,6 @@ class Bag
     public function count(): int
     {
         return count($this->parameters);
-    }
-
-    /**
-     * Returns true if the parameters is empty
-     * @return bool
-     */
-    public function empty():bool
-    {
-        return empty($this->parameters);
     }
 
     /**
