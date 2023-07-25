@@ -139,18 +139,18 @@ class Response
     private int $statusCode;
     private string $charset = 'UTF-8';
 
-    private array $headers;
+    private array $header;
 
     /**
      * @param string $content
      * @param int $status
      * @param array $headers
      */
-    public function __construct(string $content = "", int $status = 200, array $headers = [])
+    public function __construct(string $content = "", int $status = 200, array $header = [])
     {
-        $this->sendHeader($headers)
-            ->setContent($content)
-            ->setStatusCode($status);
+            $this->setContent($content);
+            $this->setStatusCode($status);
+            $this->setHeader($header);
     }
     /**
      * @return string
@@ -188,20 +188,51 @@ class Response
         return $this;
     }
 
-    public function sendHeader(array $headers): static
+	/**
+	 * @return string
+	 */
+	public function getCharset(): string {
+		return $this->charset;
+	}
+	
+	/**
+	 * @param string $charset 
+	 * @return self
+	 */
+	public function setCharset(string $charset): self {
+		$this->charset = $charset;
+		return $this;
+	}
+    
+	/**
+	 * @return array
+	 */
+	public function getHeader(): array {
+		return $this->header;
+	}
+	
+	/**
+	 * @param array $header 
+	 * @return self
+	 */
+	public function setHeader(array $header): self {
+        $defaultHeader = [
+            'Content-Type' => "text/html",
+            'Content-Length' => mb_strlen($this->getContent(),$this->getCharset()),
+            'Content-Language' => "en"
+        ];
+		$this->header = array_replace($defaultHeader,$header);
+		return $this;
+	}
+
+    public function sendHeader(): static
     {
         if (headers_sent())
         {
             return $this;
         }
-        $arrayHeader = [
-            'Content-Type' => "text/html",
-            'Content-Length' => mb_strlen($this->getContent(),$this->charset),
-            'Content-Language' => "en"
-        ];
-        //headers
-        $arrayHeader = array_replace($arrayHeader,$headers);
-        foreach ($arrayHeader as $key => $value)
+
+        foreach ($this->getHeader() as $key => $value)
         {
             header("$key : $value", $key === "Content-Type",$this->getStatusCode());
         }
@@ -211,6 +242,7 @@ class Response
     }
     public function send():static
     {
+        $this->sendHeader();
         echo $this->content;
         return $this;
     }
