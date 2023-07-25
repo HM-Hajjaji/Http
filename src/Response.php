@@ -140,11 +140,11 @@ class Response
     private string $charset = 'UTF-8';
 
     private array $header;
-
+    private string $version = "1.0";
     /**
      * @param string $content
      * @param int $status
-     * @param array $headers
+     * @param array $header
      */
     public function __construct(string $content = "", int $status = 200, array $header = [])
     {
@@ -210,6 +210,23 @@ class Response
 	public function getHeader(): array {
 		return $this->header;
 	}
+
+    /**
+     * @return string
+     */
+    public function getVersion(): string
+    {
+        return $this->version;
+    }
+
+    /**
+     * @param string $version
+     */
+    public function setVersion(string $version): static
+    {
+        $this->version = $version;
+        return $this;
+    }
 	
 	/**
 	 * @param array $header 
@@ -237,7 +254,7 @@ class Response
             header("$key : $value", $key === "Content-Type",$this->getStatusCode());
         }
 
-        header(sprintf('HTTP/%s %s %s', "1.0", $this->getStatusCode(), self::$statusTexts[$this->getStatusCode()]), true, $this->statusCode);
+        header(sprintf('HTTP/%s %s %s', $this->getVersion(), $this->getStatusCode(), self::$statusTexts[$this->getStatusCode()]), true, $this->statusCode);
         return $this;
     }
     public function send():static
